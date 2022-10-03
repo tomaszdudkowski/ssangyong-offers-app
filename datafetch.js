@@ -1,7 +1,7 @@
-let populationData;
+let offersData;
 
 const baseURL =
-  "https://datausa.io/api/data?drilldowns=State&measures=Population";
+  "https://gx.pandora.caps.pl/zadania/api/offers.json";
 
 async function getJSON() {
   try {
@@ -20,8 +20,8 @@ async function getJSON() {
 
 async function displayData(x) {
   try {
-    populationData = await getJSON();
-    getDataToArray(populationData);
+    offersData = await getJSON();
+    getDataToArray(offersData);
   } catch (error) {
     console.log(error);
   }
@@ -29,11 +29,11 @@ async function displayData(x) {
 
 displayData();
 
-let statTable = new Array();
+let offersTable = new Array();
 function getDataToArray() {
-  let _temporaryObject = populationData;
+  let _temporaryObject = offersData;
   for (x of _temporaryObject) {
-    statTable.push(new StatisticsData(x.State, x.Year, x.Population));
+    offersTable.push(new OfferData(x.title, x.Year, x.Population));
     addElement(x);
   }
 }
@@ -142,11 +142,9 @@ function defaultSetting() {
   }
 }
 
-class StatisticsData {
-  constructor(state, year, population) {
-    this.State = state;
-    this.Year = year;
-    this.Population = population;
+class OfferData {
+  constructor(title) {
+    this.Title = title;
   }
 }
 
@@ -160,15 +158,7 @@ function addElement(x) {
   nationElement.innerHTML = x.State;
   statElement.appendChild(nationElement);
 
-  let yearElement = document.createElement("main");
-  yearElement.className = "year";
-  yearElement.innerHTML = x.Year;
-  statElement.appendChild(yearElement);
-
-  let populationElement = document.createElement("footer");
-  populationElement.className = "population";
-  populationElement.innerHTML = "Population: " + x.Population;
-  statElement.appendChild(populationElement);
+  
 
   document
     .getElementsByClassName("population-statistics")[0]
