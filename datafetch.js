@@ -63,6 +63,26 @@ function addElement(x) {
   let offerElement = document.createElement("section");
   offerElement.classList.add("content-box");
 
+  let logoBox = document.createElement("div");
+  logoBox.className = "logoBox";
+
+  let logo1 = document.createElement("img");
+  logo1.className = "logo1";
+  logo1.setAttribute("src", "https://www.wyborkierowcow.pl/wp-content/uploads/2022/04/SsangYong-Symbol-scaled.jpg");
+  logoBox.appendChild(logo1);
+
+  let logo2 = document.createElement("div");
+  logo2.className = "logo2";
+  let biacomex = document.createElement("p");
+  let bialystok = document.createElement("p");
+  biacomex.innerHTML = "BIACOMEX";
+  bialystok.innerHTML = "Białystok";
+  logo2.appendChild(biacomex);
+  logo2.appendChild(bialystok);
+
+  logoBox.appendChild(logo2);
+  offerElement.appendChild(logoBox);
+
   let photoElement = document.createElement("img");
   photoElement.className = "photo";
   let photox = x.photos[1];
@@ -110,6 +130,11 @@ function addElement(x) {
   desc.appendChild(priceElement);
 
   offerElement.appendChild(desc);
+
+  let ribbon = document.createElement("h4");
+  ribbon.className = "ribbon";
+  ribbon.innerHTML = "NOWY";
+  offerElement.appendChild(ribbon);
 
   document
     .getElementsByClassName("offers-data")[0]
