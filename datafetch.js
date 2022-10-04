@@ -33,7 +33,18 @@ let offersTable = new Array();
 function getDataToArray() {
   let _temporaryObject = offersData;
   for (x of _temporaryObject) {
-    offersTable.push(new OfferModel(x.title, x.params.year));
+    let params = x.params;
+
+    let photos = x.photos;
+    let photo1 = photos[1];
+    let photoSrc1 = photo1["320x240"];
+
+    let price = x.params.price;
+    let priceCurrency = new Intl.NumberFormat('pl-PL').format(price[1]);
+    let currency = price["currency"];
+    let gross = price["gross_net"];
+
+    offersTable.push(new OfferModel(photoSrc1, params.model, params.year, params.mileage, params.engine_power, params.fuel_type, x.title, priceCurrency, currency, gross));
     addElement(x);
   }
 }
@@ -45,17 +56,39 @@ function removeElementsByClass(className) {
   }
 }
 
+let _priceState = 0;
+
+function sortByPrice() {
+
+  removeElementsByClass("content-box");
+
+  if (_priceState == 0) {
+    console.log("now")
+    //offersTable.sort((a, b) => a.Price - b.Price);
+    _priceState = 1;
+  } else if (_priceState == 1) {
+    //offersTable.sort((a, b) => b.Price - a.Price);
+    _priceState = 0;
+  }
+
+  for (x of offersTable) {
+    addElement(x);
+  }
+}
+
+
 class OfferModel {
-  constructor(photos, model, year, mileage, engine_power, fuel_type, title, price, currency) {
-    this.photos = photos;
-    this.model = model;
-    this.year = year;
-    this.mileage = mileage;
-    this.engine_power = engine_power;
-    this.fuel_type = fuel_type;
-    this.title = title;
-    this.price = price;
-    this.currency = currency;
+  constructor(photos, model, year, mileage, engine_power, fuel_type, title, price, currency, gross) {
+    this.Photos = photos;
+    this.Model = model;
+    this.Year = year;
+    this.Mileage = mileage;
+    this.Engine_power = engine_power;
+    this.Fuel_type = fuel_type;
+    this.Title = title;
+    this.Price = price;
+    this.Currency = currency;
+    this.Gross = gross;
   }
 }
 
@@ -120,21 +153,38 @@ function addElement(x) {
   desc.appendChild(fuel);
 
   let titleElement = document.createElement("p");
-  titleElement.className = "state";
   titleElement.innerHTML = x.title;
   desc.appendChild(titleElement);
 
   let priceElement = document.createElement("p");
+  priceElement.className = "price";
   let price = x.params.price;
-  priceElement.innerHTML = price[1] + " " + price.currency;
+  let priceCurrency = new Intl.NumberFormat('pl-PL').format(price[1])
+  priceElement.innerHTML = priceCurrency + " " + price.currency;
   desc.appendChild(priceElement);
+
+  let faktura = document.createElement("p");
+  faktura.className = "faktura";
+  let pricex = x.params.price;
+  let gross = pricex["gross_net"];
+  if(gross != "") {
+    faktura.innerHTML = "brutto / Faktura VAT";
+  } else {
+    faktura.innerHTML = "netto / Faktura VAT"
+  }
+  
+  desc.appendChild(faktura);
 
   offerElement.appendChild(desc);
 
   let ribbon = document.createElement("h4");
   ribbon.className = "ribbon";
   ribbon.innerHTML = "NOWY";
-  offerElement.appendChild(ribbon);
+  let new_used = x.new_used;
+  if(new_used === "new") {
+    offerElement.appendChild(ribbon);
+  }
+  
 
   document
     .getElementsByClassName("offers-data")[0]
