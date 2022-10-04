@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="data.css">
 
     
-    <title>Population Statistics USA - Tomasz Dudkowski</title>
+    <title>Tomasz Dudkowski</title>
   </head>
 
   <body>
@@ -62,9 +62,6 @@
                   >Home</a
                 >
               </li>
-              <li class="nav-item">
-                <a class="nav-link btn btn-s btn-round" href="population_statistics.html">USA Statistics</a>
-              </li>
             </ul>
           </div>
         </div>
@@ -74,95 +71,13 @@
 <section class="statistics-menu">
       <ul>
         <p class="small-text text-muted">Sort option:</p>
-        <li><a class="btn btn-s btn-dark btn-semi-round" onclick="sortByYear()">Sort by year</a></li>
+        <li><a class="btn btn-s btn-dark btn-semi-round" onclick="sortByPrice()">Sort by year</a></li>
         <li><a class="btn btn-s btn-dark btn-semi-round" onclick="sortByState()">Sort by state</a></li>
         <li><a class="btn btn-s btn-dark btn-semi-round" onclick="sortByPopulation()">Sort by population</a></li>
       </ul>
     </section>
 
-    <section class="population-statistics data-table"></section>
-
-    <footer class="bg-white" style="--bs-bg-opacity: 0.1">
-      <div class="container p-3">
-        <div class="row">
-          <section class="col-lg-3 col-md-6">
-            <p class="text x-small-text-block text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt.
-            </p>
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#" target="_blank" title="twitter"
-                  ><i class="fa fa-twitter"></i
-                ></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" target="_blank" title="facebook"
-                  ><i class="fa fa-facebook"></i
-                ></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" target="_blank" title="instagram"
-                  ><i class="fa fa-instagram"></i
-                ></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" target="_blank" title="pinterest"
-                  ><i class="fa fa-pinterest"></i
-                ></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" target="_blank" title="vimeo"
-                  ><i class="fa fa-vimeo"></i
-                ></a>
-              </li>
-            </ul>
-          </section>
-  
-          <section class="col-lg-3 col-md-6">
-            <h6 class="text-uppercase font-weight-bold mb-4">Shop</h6>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" target="_blank" class="text-muted">Women</a>
-              </li>
-              <li>
-                <a href="#" target="_blank" class="text-muted">Men</a>
-              </li>
-              <li>
-                <a href="#" target="_blank" class="text-muted">Unisex</a>
-              </li>
-            </ul>
-          </section>
-  
-          <section class="col-lg-3 col-md-6">
-            <h6 class="text-uppercase font-weight-bold mb-4">Company</h6>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" target="_blank" class="text-muted">Contact Us</a>
-              </li>
-              <li>
-                <a href="#" target="_blank" class="text-muted">Information</a>
-              </li>
-              <li>
-                <a href="#" target="_blank" class="text-muted">News</a>
-              </li>
-            </ul>
-          </section>
-  
-          <section class="col-lg-3 col-md-6">
-            <h6 class="text-uppercase font-weight-bold mb-4">Newsletter</h6>
-            <p class="text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
-            <div class="p-1 rounded border">
-              <div class="input-group">
-                <input type="email" placeholder="Enter your email address" aria-describedby="button-addon1" class="form-control border-0 shadow-0">
-                <div class="input-group-append">
-                  <button type="submit" class="button btn-medium btn-semi-transparent"><i class="fa fa-paper-plane"></i></button>
-                </div>
-              </div>
-          </section>
-        </div>
-      </div>
-    </footer>
+    <section class="offers-data data-table"></section>
 
     <script src="datafetch.js"></script>
     

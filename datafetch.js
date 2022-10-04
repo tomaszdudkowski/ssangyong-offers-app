@@ -12,7 +12,7 @@ async function getJSON() {
     }
 
     let body = await response.json();
-    return body.data;
+    return body.results;
   } catch (error) {
     console.log(error);
   }
@@ -33,7 +33,7 @@ let offersTable = new Array();
 function getDataToArray() {
   let _temporaryObject = offersData;
   for (x of _temporaryObject) {
-    offersTable.push(new OfferData(x.title, x.Year, x.Population));
+    offersTable.push(new OfferModel(x.title, x.params.year));
     addElement(x);
   }
 }
@@ -45,122 +45,50 @@ function removeElementsByClass(className) {
   }
 }
 
-let _yearState = 0;
-let _populationState = 0;
-let _stateState = 0;
-
-function sortByYear() {
-  removeElementsByClass("state");
-  removeElementsByClass("year");
-  removeElementsByClass("population");
-  removeElementsByClass("content-box");
-
-  if (_yearState == 0) {
-    statTable.sort((a, b) => a.Year - b.Year);
-    _yearState = 1;
-  } else if (_yearState == 1) {
-    statTable.sort((a, b) => b.Year - a.Year);
-    _yearState = 0;
-  }
-
-  for (x of statTable) {
-    addElement(x);
-  }
-}
-
-function sortByPopulation() {
-  removeElementsByClass("state");
-  removeElementsByClass("year");
-  removeElementsByClass("population");
-  removeElementsByClass("content-box");
-
-  if (_populationState == 0) {
-    statTable.sort((a, b) => a.Population - b.Population);
-    _populationState = 1;
-  } else if (_populationState == 1) {
-    statTable.sort((a, b) => b.Population - a.Population);
-    _populationState = 0;
-  }
-
-  for (x of statTable) {
-    addElement(x);
-  }
-}
-
-function sortByState() {
-  removeElementsByClass("state");
-  removeElementsByClass("year");
-  removeElementsByClass("population");
-  removeElementsByClass("content-box");
-
-  if (_stateState == 0) {
-    statTable.sort(function (a, b) {
-      if (a.State < b.State) {
-        return -1;
-      }
-      if (a.State > b.State) {
-        return 1;
-      }
-    });
-    _stateState = 1;
-  } else if (_stateState == 1) {
-    statTable.sort(function (a, b) {
-      if (b.State < a.State) {
-        return -1;
-      }
-      if (b.State > a.State) {
-        return 1;
-      }
-    });
-    _stateState = 0;
-  }
-
-  for (x of statTable) {
-    addElement(x);
-  }
-}
-
-function defaultSetting() {
-  removeElementsByClass("state");
-  removeElementsByClass("year");
-  removeElementsByClass("population");
-  removeElementsByClass("content-box");
-
-  statTable.sort(function (a, b) {
-    if (a.State < b.State) {
-      return -1;
-    }
-    if (a.State > b.State) {
-      return 1;
-    }
-  });
-  _stateState = 1;
-  statTable.sort((a, b) => b.Year - a.Year);
-  _yearState = 0;
-  for (x of statTable) {
-    addElement(x);
-  }
-}
-
-class OfferData {
-  constructor(title) {
-    this.Title = title;
+class OfferModel {
+  constructor(year, mileage, engine_power, fuel_type, title, price, currency) {
+    this.year = year;
+    this.mileage = mileage;
+    this.engine_power = engine_power;
+    this.fuel_type = fuel_type;
+    this.title = title;
+    this.price = price;
+    this.currency = currency;
   }
 }
 
 function addElement(x) {
-  let statElement = document.createElement("section");
-  statElement.classList.add("content-box");
-  statElement.classList.add("bg-blur");
+  let offerElement = document.createElement("section");
+  offerElement.classList.add("content-box");
 
-  let nationElement = document.createElement("header");
-  nationElement.className = "state";
-  nationElement.innerHTML = x.State;
-  statElement.appendChild(nationElement);
+  let yearElement = document.createElement("p");
+  yearElement.className = "state";
+  yearElement.innerHTML = x.params.year;
+  offerElement.appendChild(yearElement);
 
+  let mileageElemnt = document.createElement("p");
+  mileageElemnt.innerHTML = x.params.mileage + "km";
+  offerElement.appendChild(mileageElemnt);
+
+  let enginePowerElement = document.createElement("p");
+  enginePowerElement.innerHTML = x.params.engine_power + "KM";
+  offerElement.appendChild(enginePowerElement);
+
+  let fuelTypeElement = document.createElement("p");
+  if(x.params.fuel_type === "petrol") {
+    fuelTypeElement.innerHTML = "Benzyna";
+  } else if(x.params.fuel_type === "diesel") {
+    fuelTypeElement.innerHTML = "Diesel";
+  }
   
+  offerElement.appendChild(fuelTypeElement);
+
+  let titleElement = document.createElement("p");
+  titleElement.className = "state";
+  titleElement.innerHTML = x.title;
+  offerElement.appendChild(titleElement);
 
   document
-    .getElementsByClassName("population-statistics")[0]
-    .appendChild(statElement);
+    .getElementsByClassName("offers-data")[0]
+    .appendChild(offerElement);
 }
