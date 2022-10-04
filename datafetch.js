@@ -46,8 +46,9 @@ function removeElementsByClass(className) {
 }
 
 class OfferModel {
-  constructor(photos, year, mileage, engine_power, fuel_type, title, price, currency) {
+  constructor(photos, model, year, mileage, engine_power, fuel_type, title, price, currency) {
     this.photos = photos;
+    this.model = model;
     this.year = year;
     this.mileage = mileage;
     this.engine_power = engine_power;
@@ -63,41 +64,52 @@ function addElement(x) {
   offerElement.classList.add("content-box");
 
   let photoElement = document.createElement("img");
+  photoElement.className = "photo";
   let photox = x.photos[1];
   let photoSrc = photox["320x240"];
   photoElement.setAttribute("src", photoSrc);
   offerElement.appendChild(photoElement);
 
-  let yearElement = document.createElement("p");
-  yearElement.className = "state";
-  yearElement.innerHTML = x.params.year;
-  offerElement.appendChild(yearElement);
+  let modelElement = document.createElement("p");
+  modelElement.className = "title";
+  modelElement.innerHTML = x.params.model;
+  offerElement.appendChild(modelElement);
 
-  let mileageElemnt = document.createElement("p");
-  mileageElemnt.innerHTML = x.params.mileage + "km";
-  offerElement.appendChild(mileageElemnt);
-
-  let enginePowerElement = document.createElement("p");
-  enginePowerElement.innerHTML = x.params.engine_power + "KM";
-  offerElement.appendChild(enginePowerElement);
-
-  let fuelTypeElement = document.createElement("p");
+  let desc = document.createElement("div");
+  desc.className = "desc";
+  let paramsList = document.createElement("ul");
+  paramsList.className = "params-list";
+  offerElement.appendChild(paramsList);
+  let fuelType;
   if(x.params.fuel_type === "petrol") {
-    fuelTypeElement.innerHTML = "Benzyna";
+    fuelType = "Benzyna";
   } else if(x.params.fuel_type === "diesel") {
-    fuelTypeElement.innerHTML = "Diesel";
+    fuelType = "Diesel";
   }
-  offerElement.appendChild(fuelTypeElement);
+  let params = [x.params.year ,x.params.mileage + "km", x.params.engine_power + "KM", " "];
+  for (let i = 0; i <= 3; i++) {
+    let li = document.createElement("li");
+    li.innerHTML = params[i]
+    paramsList.appendChild(li);
+  }
+  desc.appendChild(paramsList);
+
+  let fuel = document.createElement("p");
+  fuel.className = "fuelType";
+  fuel.innerHTML = fuelType;
+  desc.appendChild(fuel);
 
   let titleElement = document.createElement("p");
   titleElement.className = "state";
   titleElement.innerHTML = x.title;
-  offerElement.appendChild(titleElement);
+  desc.appendChild(titleElement);
 
   let priceElement = document.createElement("p");
   let price = x.params.price;
   priceElement.innerHTML = price[1] + " " + price.currency;
-  offerElement.appendChild(priceElement);
+  desc.appendChild(priceElement);
+
+  offerElement.appendChild(desc);
 
   document
     .getElementsByClassName("offers-data")[0]

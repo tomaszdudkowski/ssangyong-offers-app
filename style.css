@@ -40,9 +40,44 @@
   flex-direction: column;
   place-content: center;
   margin: 10px auto 10px auto;
-  padding: 10px;
-  height: 300px;
+  height: 553px;
   width: 300px;
   border: 1px black solid;
-  position: relative;
+}
+
+.params-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.params-list li {
+  flex-direction: row;
+  margin-left: 2em;
+}
+
+.params-list li:first-child {
+  list-style: none;
+  margin-left: 0;
+}
+
+.photo {
+  
+}
+
+.title {
+  color: black;
+  text-transform: uppercase;
+  font-size: 2em;
+  padding-left: .7em;
+  padding-top: .3em;
+}
+
+.desc {
+  width: 280px;
+  padding-left: 1.5em;
+}
+
+.fuelType {
+  margin: 0;
 }
