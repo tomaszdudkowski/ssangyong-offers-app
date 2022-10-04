@@ -31,9 +31,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="microbase-css/microbase.elements.css" />
-    <link rel="stylesheet" href="data.css">
-
     
     <title>Tomasz Dudkowski</title>
   </head>
@@ -68,7 +65,7 @@
       </nav>
     </header>
  
-<section class="statistics-menu">
+<section class="filter-menu">
       <ul>
         <p class="small-text text-muted">Sort option:</p>
         <li><a class="btn btn-s btn-dark btn-semi-round" onclick="sortByPrice()">Sort by year</a></li>
@@ -76,7 +73,7 @@
         <li><a class="btn btn-s btn-dark btn-semi-round" onclick="sortByPopulation()">Sort by population</a></li>
       </ul>
     </section>
-
+    
     <section class="offers-data data-table"></section>
 
     <script src="datafetch.js"></script>

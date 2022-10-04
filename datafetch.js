@@ -46,7 +46,8 @@ function removeElementsByClass(className) {
 }
 
 class OfferModel {
-  constructor(year, mileage, engine_power, fuel_type, title, price, currency) {
+  constructor(photos, year, mileage, engine_power, fuel_type, title, price, currency) {
+    this.photos = photos;
     this.year = year;
     this.mileage = mileage;
     this.engine_power = engine_power;
@@ -60,6 +61,12 @@ class OfferModel {
 function addElement(x) {
   let offerElement = document.createElement("section");
   offerElement.classList.add("content-box");
+
+  let photoElement = document.createElement("img");
+  let photox = x.photos[1];
+  let photoSrc = photox["320x240"];
+  photoElement.setAttribute("src", photoSrc);
+  offerElement.appendChild(photoElement);
 
   let yearElement = document.createElement("p");
   yearElement.className = "state";
@@ -80,13 +87,17 @@ function addElement(x) {
   } else if(x.params.fuel_type === "diesel") {
     fuelTypeElement.innerHTML = "Diesel";
   }
-  
   offerElement.appendChild(fuelTypeElement);
 
   let titleElement = document.createElement("p");
   titleElement.className = "state";
   titleElement.innerHTML = x.title;
   offerElement.appendChild(titleElement);
+
+  let priceElement = document.createElement("p");
+  let price = x.params.price;
+  priceElement.innerHTML = price[1] + " " + price.currency;
+  offerElement.appendChild(priceElement);
 
   document
     .getElementsByClassName("offers-data")[0]
